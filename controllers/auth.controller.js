@@ -2,8 +2,6 @@ const db = require("../models");
 const config = require("../config/auth.config");
 const User = db.user;
 
-const Op = db.Sequelize.Op;
-
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
 
@@ -13,7 +11,7 @@ exports.signup = (req, res) => {
     email: req.body.email,
     password: bcrypt.hashSync(req.body.password, 8),
     age: req.body.age,
-    balance: 0,
+    balance: 300,
     classes_completed: 0,
     okie_dokie_points: 0,
     isAdmin: false,
@@ -47,7 +45,7 @@ exports.signin = (req, res) => {
         });
       }
       var token = jwt.sign({ id: user.id }, config.secret, {
-        expiresIn: 86400, // 24 hours
+        expiresIn: "24h",
       });
       res.status(200).send({
         id: user.id,
@@ -56,6 +54,7 @@ exports.signin = (req, res) => {
         balance: user.balance,
         classes_completed: user.classes_completed,
         okie_dokie_points: user.okie_dokie_points,
+        isAdmin: user.isAdmin,
       });
     })
     .catch((err) => {
@@ -68,6 +67,7 @@ exports.fetch_user = (req, res) => {
     where: { id: req.userId },
   })
     .then((user) => {
+      let token = req.headers["x-access-token"];
       res.status(200).send({
         id: user.id,
         email: user.email,
@@ -78,7 +78,6 @@ exports.fetch_user = (req, res) => {
       });
     })
     .catch((err) => {
-      console.log("-----------------------------");
       res.status(500).send({ message: err.message });
     });
 };
