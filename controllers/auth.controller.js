@@ -75,6 +75,7 @@ exports.fetch_user = (req, res) => {
         balance: user.balance,
         classes_completed: user.classes_completed,
         okie_dokie_points: user.okie_dokie_points,
+        isAdmin: user.isAdmin,
       });
     })
     .catch((err) => {

@@ -1,6 +1,8 @@
 const db = require("../models");
 const Lesson = db.lesson;
 const User = db.user;
+const { Op } = require("sequelize");
+var moment = require("moment");
 
 exports.add_lesson = (req, res) => {
   Lesson.create({
@@ -13,19 +15,46 @@ exports.add_lesson = (req, res) => {
     num_students: req.body.num_students,
     link: req.body.link,
     price: req.body.price,
+    datetime: moment(
+      `${req.body.date} ${req.body.time}`,
+      "YYYY-MM-DD HH:mm"
+    ).unix(),
   })
     .then(() => {
-      Lesson.findAll({ order: [["updatedAt", "DESC"]] }).then((data) => {
+      Lesson.findAll({
+        order: [["updatedAt", "DESC"]],
+        include: [
+          {
+            model: User,
+            as: "user",
+            through: {
+              attributes: ["lesson_id", "user_id"],
+            },
+          },
+        ],
+      }).then((data) => {
         res.send({ lessons: data });
       });
     })
     .catch((err) => {
+      console.log(err);
       res.status(500).send({ message: err.message });
     });
 };
 
 exports.get_lessons = (req, res) => {
-  Lesson.findAll({ order: [["updatedAt", "DESC"]] })
+  Lesson.findAll({
+    order: [["updatedAt", "DESC"]],
+    include: [
+      {
+        model: User,
+        as: "user",
+        through: {
+          attributes: ["lesson_id", "user_id"],
+        },
+      },
+    ],
+  })
     .then((data) => {
       res.send({ lessons: data });
     })
@@ -54,7 +83,18 @@ exports.edit_lesson = (req, res) => {
           price: req.body.price,
         })
         .then(() => {
-          Lesson.findAll({ order: [["updatedAt", "DESC"]] }).then((data) => {
+          Lesson.findAll({
+            order: [["updatedAt", "DESC"]],
+            include: [
+              {
+                model: User,
+                as: "user",
+                through: {
+                  attributes: ["lesson_id", "user_id"],
+                },
+              },
+            ],
+          }).then((data) => {
             res.send({ lessons: data });
           });
         });
@@ -73,7 +113,18 @@ exports.delete_lesson = (req, res) => {
   }).then((lesson) => {
     if (lesson) {
       lesson.destroy().then(() => {
-        Lesson.findAll({ order: [["updatedAt", "DESC"]] }).then((data) => {
+        Lesson.findAll({
+          order: [["updatedAt", "DESC"]],
+          include: [
+            {
+              model: User,
+              as: "user",
+              through: {
+                attributes: ["lesson_id", "user_id"],
+              },
+            },
+          ],
+        }).then((data) => {
           res.send({ lessons: data });
         });
       });
@@ -97,6 +148,7 @@ exports.sign_up_for_a_lesson = (req, res) => {
                 lesson.addUser(req.userId);
                 user.update({
                   balance: parseInt(user.balance) - parseInt(lesson.price),
+                  classes_completed: parseInt(user.classes_completed) + 1,
                 });
               }
               return res.status(200).send({ message: "Success!" });
@@ -120,6 +172,11 @@ exports.get_user_classes = (req, res) => {
     include: [
       {
         model: Lesson,
+        where: {
+          datetime: {
+            [Op.gt]: moment().subtract(1, "hours").unix(),
+          },
+        },
         as: "lessons",
         through: {
           attributes: ["lesson_id", "user_id"],
@@ -127,7 +184,12 @@ exports.get_user_classes = (req, res) => {
         },
       },
     ],
-  }).then((data) => {
-    res.send({ user_lessons: data.lessons });
-  });
+    order: [[Lesson, "datetime", "ASC"]],
+  })
+    .then((data) => {
+      res.send({ user_lessons: data.lessons });
+    })
+    .catch((err) => {
+      console.log(err);
+    });
 };

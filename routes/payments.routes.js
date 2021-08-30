@@ -10,5 +10,5 @@ module.exports = function (app) {
     next();
   });
 
-  app.post("/payment", controller.handle_payments);
+  app.post("/payment/notifications", controller.handle_payments);
 };

@@ -27,6 +27,9 @@ module.exports = (sequelize, Sequelize) => {
     link: {
       type: Sequelize.STRING,
     },
+    datetime: {
+      type: Sequelize.STRING,
+    },
   });
 
   return Lesson;

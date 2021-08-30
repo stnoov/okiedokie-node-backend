@@ -7,9 +7,11 @@ exports.add_news = (req, res) => {
     content: req.body.content,
   })
     .then(() => {
-      News.findAll({ order: [["updatedAt", "DESC"]] }).then((data) => {
-        res.send({ news: data });
-      });
+      News.findAll({ order: [["createdAt", "DESC"]], limit: 3 }).then(
+        (data) => {
+          res.send({ news: data });
+        }
+      );
     })
     .catch((err) => {
       res.status(500).send({ message: err.message });
