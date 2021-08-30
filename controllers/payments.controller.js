@@ -6,6 +6,11 @@ exports.handle_payments = (req, res) => {
   const sha1_hash = sha1(checkNotification);
   console.log("sha1_hash: ", sha1_hash);
   if (req.body.sha1_hash === sha1_hash) {
-    return "SUCCESS";
+    console.log("Sha1 OK");
+    if (req.body.unaccepted) {
+      console.log("Payment unaccepted");
+      res.status(500).send({ message: "payment unaccepted" });
+    }
   }
+  console.log("label", req.body.label);
 };
