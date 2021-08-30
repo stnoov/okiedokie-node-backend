@@ -17,7 +17,7 @@ exports.handle_payments = (req, res) => {
     }).then((user) => {
       user
         .update({
-          balance: req.body.withdraw_amount,
+          balance: parseInt(user.balance) + parseInt(req.body.withdraw_amount),
         })
         .then(() => {
           Payments.create({
@@ -27,6 +27,9 @@ exports.handle_payments = (req, res) => {
             accepted: req.body.unaccepted,
             userId: req.body.label,
           });
+        })
+        .then(() => {
+          return res.status(200).send({ message: "Success!" });
         });
     });
   }
