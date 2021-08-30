@@ -22,6 +22,7 @@ db.user = require("../models/user.model.js")(sequelize, Sequelize);
 db.review = require("../models/review.model.js")(sequelize, Sequelize);
 db.news = require("../models/news.model.js")(sequelize, Sequelize);
 db.lesson = require("../models/lesson.model.js")(sequelize, Sequelize);
+db.payments = require("../models/payments.model.js")(sequelize, Sequelize);
 db.user_attendance = require("../models/user_attendance.model.js")(
   sequelize,
   Sequelize
@@ -31,6 +32,11 @@ db.user.hasMany(db.review, {
   foreignKey: "userId",
 });
 db.review.belongsTo(db.user);
+
+db.user.hasMany(db.payments, {
+  foreignKey: "userId",
+});
+db.payments.belongsTo(db.user);
 
 db.user.belongsToMany(db.lesson, {
   as: "lessons",
