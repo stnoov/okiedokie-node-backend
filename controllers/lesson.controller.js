@@ -187,7 +187,11 @@ exports.get_user_classes = (req, res) => {
     order: [[Lesson, "datetime", "ASC"]],
   })
     .then((data) => {
-      res.send({ user_lessons: data.lessons });
+      if (data) {
+        res.send({ user_lessons: data.lessons });
+      } else {
+        res.send({ user_lessons: [] });
+      }
     })
     .catch((err) => {
       console.log(err);
