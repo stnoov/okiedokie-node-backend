@@ -17,4 +17,10 @@ module.exports = function (app) {
   );
 
   app.get("/api/reviews/get_reviews", controller.show_reviews);
+
+  app.post(
+    "/api/reviews/delete_review",
+    [authJwt.verifyToken],
+    controller.delete_review
+  );
 };
