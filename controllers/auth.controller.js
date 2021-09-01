@@ -53,8 +53,8 @@ exports.signin = (req, res) => {
         accessToken: token,
         balance: user.balance,
         classes_completed: user.classes_completed,
-        okie_dokie_points: user.okie_dokie_points,
         isAdmin: user.isAdmin,
+        okie_dokie_points: user.okie_dokie_points,
       });
     })
     .catch((err) => {
@@ -74,8 +74,8 @@ exports.fetch_user = (req, res) => {
         accessToken: token,
         balance: user.balance,
         classes_completed: user.classes_completed,
-        okie_dokie_points: user.okie_dokie_points,
         isAdmin: user.isAdmin,
+        okie_dokie_points: user.okie_dokie_points,
       });
     })
     .catch((err) => {

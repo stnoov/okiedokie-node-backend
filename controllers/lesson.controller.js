@@ -44,7 +44,7 @@ exports.add_lesson = (req, res) => {
 
 exports.get_lessons = (req, res) => {
   Lesson.findAll({
-    order: [["updatedAt", "DESC"]],
+    order: [["datetime", "ASC"]],
     include: [
       {
         model: User,
@@ -149,6 +149,9 @@ exports.sign_up_for_a_lesson = (req, res) => {
                 user.update({
                   balance: parseInt(user.balance) - parseInt(lesson.price),
                   classes_completed: parseInt(user.classes_completed) + 1,
+                });
+                lesson.update({
+                  num_students: parseInt(lesson.num_students) - 1,
                 });
               }
               return res.status(200).send({ message: "Success!" });
