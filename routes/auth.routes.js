@@ -20,4 +20,8 @@ module.exports = function (app) {
   app.post("/api/auth/signin", controller.signin);
 
   app.get("/api/user/fetch_user", [authJwt.verifyToken], controller.fetch_user);
+
+  app.post("/api/user/reset_password", controller.reset_password);
+
+  app.post("/api/user/update_password", controller.update_password);
 };

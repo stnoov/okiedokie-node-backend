@@ -19,7 +19,7 @@ exports.add_news = (req, res) => {
 };
 
 exports.get_news = (req, res) => {
-  News.findAll({ order: [["updatedAt", "DESC"]] })
+  News.findAll({ order: [["updatedAt", "DESC"]], limit: 3 })
     .then((data) => {
       res.send({ news: data });
     })

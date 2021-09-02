@@ -1,6 +1,7 @@
 const db = require("../models");
 const config = require("../config/auth.config");
 const User = db.user;
+const sendEmail = require("../middleware/sendEmail");
 
 var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
@@ -81,4 +82,48 @@ exports.fetch_user = (req, res) => {
     .catch((err) => {
       res.status(500).send({ message: err.message });
     });
+};
+
+exports.reset_password = (req, res) => {
+  const emailAddress = req.body.email;
+
+  User.findOne({
+    where: { email: emailAddress },
+  })
+    .then((user) => {
+      var payload = {
+        id: user.id,
+        email: emailAddress,
+      };
+      var secret = user.password + "-" + user.createdAt.getTime();
+      var token = jwt.sign(payload, secret);
+      sendEmail(payload.id, token, "stnoov@gmail.com");
+    })
+    .then(() => {
+      res.status(200).send("Success");
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+};
+
+exports.update_password = (req, res) => {
+  User.findOne({
+    where: { id: req.body.id },
+  }).then((user) => {
+    var secret = user.password + "-" + user.createdAt.getTime();
+    var payload = jwt.decode(req.body.token, secret);
+    if (payload.id === user.id) {
+      user
+        .update({ password: bcrypt.hashSync(req.body.password, 8) })
+        .then(() => {
+          res.status(200).send("Success");
+        })
+        .catch((err) => {
+          console.log(err);
+        });
+    } else {
+      res.status(500).send({ message: err.message });
+    }
+  });
 };
