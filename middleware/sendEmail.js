@@ -15,7 +15,7 @@ const sendEmail = (id, token, email) => {
     to: email,
     subject: "Reset password",
     html:
-      '<p>Click <a href="http://localhost:3000/reset_password/' +
+      '<p>Click <a href="https://okiedokie.netlify.app/reset_password/' +
       id +
       "/" +
       token +
