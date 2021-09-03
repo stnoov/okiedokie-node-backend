@@ -3,6 +3,7 @@ const Lesson = db.lesson;
 const User = db.user;
 const { Op } = require("sequelize");
 var moment = require("moment");
+const sendLessonNotification = require("../middleware/sendLessonNotification");
 
 exports.add_lesson = (req, res) => {
   Lesson.create({
@@ -153,6 +154,12 @@ exports.sign_up_for_a_lesson = (req, res) => {
                 lesson.update({
                   num_students: parseInt(lesson.num_students) - 1,
                 });
+                sendLessonNotification(
+                  user.email,
+                  lesson.link,
+                  lesson.date,
+                  lesson.time
+                );
               }
               return res.status(200).send({ message: "Success!" });
             } else {
