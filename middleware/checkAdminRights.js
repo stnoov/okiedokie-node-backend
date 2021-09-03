@@ -22,15 +22,15 @@ const checkAdminRights = (req, res, next) => {
     User.findOne({ where: { id: decoded.id } })
       .then(() => {
         if (!user.isAdmin) {
-          return res.status(403).send({
+          res.status(403).send({
             message: "Not an admin",
           });
         }
+        console.log("User is admin");
       })
       .catch((error) => {
         console.log(error);
       });
-    console.log("User is admin");
     next();
   });
 };

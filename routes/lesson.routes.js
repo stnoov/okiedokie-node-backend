@@ -12,17 +12,17 @@ module.exports = function (app) {
 
   app.post(
     "/api/lessons/add_lesson",
-    [authJwt.verifyToken, checkAdminRights],
+    [checkAdminRights],
     controller.add_lesson
   );
   app.post(
     "/api/lessons/edit_lesson",
-    [authJwt.verifyToken, checkAdminRights],
+    [checkAdminRights],
     controller.edit_lesson
   );
   app.post(
     "/api/lessons/delete_lesson",
-    [authJwt.verifyToken, checkAdminRights],
+    [checkAdminRights],
     controller.delete_lesson
   );
   app.post(

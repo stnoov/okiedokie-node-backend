@@ -7,11 +7,13 @@ exports.add_news = (req, res) => {
     content: req.body.content,
   })
     .then(() => {
-      News.findAll({ order: [["createdAt", "DESC"]], limit: 3 }).then(
-        (data) => {
+      News.findAll({ order: [["createdAt", "DESC"]] })
+        .then((data) => {
           res.send({ news: data });
-        }
-      );
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     })
     .catch((err) => {
       res.status(500).send({ message: err.message });
@@ -19,7 +21,7 @@ exports.add_news = (req, res) => {
 };
 
 exports.get_news = (req, res) => {
-  News.findAll({ order: [["updatedAt", "DESC"]], limit: 3 })
+  News.findAll({ order: [["updatedAt", "DESC"]] })
     .then((data) => {
       res.send({ news: data });
     })
