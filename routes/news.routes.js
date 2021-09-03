@@ -1,4 +1,4 @@
-const { authJwt } = require("../middleware");
+const { authJwt, checkAdminRights } = require("../middleware");
 const controller = require("../controllers/news.controller");
 
 module.exports = function (app) {
@@ -10,11 +10,19 @@ module.exports = function (app) {
     next();
   });
 
-  app.post("/api/news/add_news", [authJwt.verifyToken], controller.add_news);
-  app.post("/api/news/edit_news", [authJwt.verifyToken], controller.edit_news);
+  app.post(
+    "/api/news/add_news",
+    [authJwt.verifyToken, checkAdminRights],
+    controller.add_news
+  );
+  app.post(
+    "/api/news/edit_news",
+    [authJwt.verifyToken, checkAdminRights],
+    controller.edit_news
+  );
   app.post(
     "/api/news/delete_news",
-    [authJwt.verifyToken],
+    [authJwt.verifyToken, checkAdminRights],
     controller.delete_news
   );
   app.get("/api/news/get_news", controller.get_news);

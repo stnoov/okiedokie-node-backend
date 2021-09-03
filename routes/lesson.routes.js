@@ -1,4 +1,4 @@
-const { authJwt } = require("../middleware");
+const { authJwt, checkAdminRights } = require("../middleware");
 const controller = require("../controllers/lesson.controller");
 
 module.exports = function (app) {
@@ -12,17 +12,17 @@ module.exports = function (app) {
 
   app.post(
     "/api/lessons/add_lesson",
-    [authJwt.verifyToken],
+    [authJwt.verifyToken, checkAdminRights],
     controller.add_lesson
   );
   app.post(
     "/api/lessons/edit_lesson",
-    [authJwt.verifyToken],
+    [authJwt.verifyToken, checkAdminRights],
     controller.edit_lesson
   );
   app.post(
     "/api/lessons/delete_lesson",
-    [authJwt.verifyToken],
+    [authJwt.verifyToken, checkAdminRights],
     controller.delete_lesson
   );
   app.post(

@@ -1,4 +1,4 @@
-const { authJwt } = require("../middleware");
+const { authJwt, checkAdminRights } = require("../middleware");
 const controller = require("../controllers/review.controller");
 
 module.exports = function (app) {

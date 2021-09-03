@@ -1,4 +1,4 @@
-const { authJwt } = require("../middleware");
+const { authJwt, checkAdminRights } = require("../middleware");
 const controller = require("../controllers/user.controller");
 
 module.exports = function (app) {
@@ -22,10 +22,14 @@ module.exports = function (app) {
     controller.get_user_data
   );
 
-  app.post("/api/users/edit_user", [authJwt.verifyToken], controller.edit_user);
+  app.post(
+    "/api/users/edit_user",
+    [authJwt.verifyToken, checkAdminRights],
+    controller.edit_user
+  );
   app.post(
     "/api/users/delete_user",
-    [authJwt.verifyToken],
+    [authJwt.verifyToken, checkAdminRights],
     controller.delete_user
   );
   app.get("/api/users/get_all_users", controller.get_all_users);
