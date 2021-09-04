@@ -16,12 +16,6 @@ module.exports = function (app) {
     controller.get_user_data
   );
 
-  app.get(
-    "/api/users/check_user",
-    [authJwt.verifyToken],
-    controller.get_user_data
-  );
-
   app.post("/api/users/edit_user", [checkAdminRights], controller.edit_user);
   app.post(
     "/api/users/delete_user",

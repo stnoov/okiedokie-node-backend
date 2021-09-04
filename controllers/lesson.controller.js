@@ -155,6 +155,7 @@ exports.sign_up_for_a_lesson = (req, res) => {
                   num_students: parseInt(lesson.num_students) - 1,
                 });
                 sendLessonNotification(
+                  req.body.locale,
                   user.email,
                   lesson.link,
                   lesson.date,

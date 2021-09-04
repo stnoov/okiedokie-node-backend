@@ -9,20 +9,35 @@ var transporter = nodemailer.createTransport({
   },
 });
 
-const sendLessonNotification = (email, link, date, time) => {
-  var mailOptions = {
-    from: "okiedokie.club@gmail.com",
-    to: email,
-    subject: "You have been successfully registered for the meeting",
-    html:
-      "<p>You have been successfully registered for the meeting <br/> which will held on " +
-      date +
-      " at " +
-      time +
-      ' <a href="' +
-      link +
-      '">Link for the meeting</a></p>',
-  };
+const sendLessonNotification = (locale, email, link, date, time) => {
+  var mailOptions =
+    locale === "ru"
+      ? {
+          from: "okiedokie.club@gmail.com",
+          to: email,
+          subject: "Ваше следующее мероприятие в OkieDokie! club",
+          html:
+            "<p>Вы успешно зарегистрировались на встречу в OkieDokie! club, которая состоится " +
+            new Date(date).toLocaleDateString +
+            " в " +
+            time +
+            '<br/> Ссылка на подключение: <a href="' +
+            link +
+            '">link</a> <br /> Так же, cсылку на подключение вы можете также найти на главной странице сайта, на картинке забронированного мероприятия, за 15 минут до его начала <br /> <br /> <br /> Warmest regards, <br />Your OkieDokie!</p>',
+        }
+      : {
+          from: "okiedokie.club@gmail.com",
+          to: email,
+          subject: "Your next OkieDokie! club meeting",
+          html:
+            "<p>You are successfully registered for the OkieDokie meeting on " +
+            new Date(date).toLocaleDateString +
+            " at " +
+            time +
+            '<br/> Click here to join: <a href="' +
+            link +
+            '">link</a> <br />The link is also available on the main page of the web-site 15 minutes before the meeting starts. <br /> <br /> <br /> Warmest regards, <br />Your OkieDokie!</p>',
+        };
 
   transporter.sendMail(mailOptions, function (error, info) {
     if (error) {

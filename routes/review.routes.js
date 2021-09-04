@@ -20,7 +20,7 @@ module.exports = function (app) {
 
   app.post(
     "/api/reviews/delete_review",
-    [authJwt.verifyToken],
+    [checkAdminRights],
     controller.delete_review
   );
 };
