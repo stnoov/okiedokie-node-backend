@@ -18,7 +18,7 @@ const sendLessonNotification = (locale, email, link, date, time) => {
           subject: "Ваше следующее мероприятие в OkieDokie! club",
           html:
             "<p>Вы успешно зарегистрировались на встречу в OkieDokie! club, которая состоится " +
-            new Date(date).toLocaleDateString +
+            new Date(date).toLocaleDateString() +
             " в " +
             time +
             '<br/> Ссылка на подключение: <a href="' +
@@ -31,7 +31,7 @@ const sendLessonNotification = (locale, email, link, date, time) => {
           subject: "Your next OkieDokie! club meeting",
           html:
             "<p>You are successfully registered for the OkieDokie meeting on " +
-            new Date(date).toLocaleDateString +
+            new Date(date).toLocaleDateString() +
             " at " +
             time +
             '<br/> Click here to join: <a href="' +
