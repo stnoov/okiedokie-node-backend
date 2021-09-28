@@ -97,7 +97,7 @@ exports.reset_password = (req, res) => {
       };
       var secret = user.password + "-" + user.createdAt.getTime();
       var token = jwt.sign(payload, secret);
-      sendEmail(payload.id, token, "stnoov@gmail.com");
+      sendEmail(payload.id, token, emailAddress);
     })
     .then(() => {
       res.status(200).send("Success");
