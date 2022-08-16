@@ -2,7 +2,7 @@ var nodemailer = require("nodemailer");
 require("dotenv").config();
 
 var transporter = nodemailer.createTransport({
-  service: "gmail",
+  service: "Mail.ru",
   auth: {
     user: process.env.EMAIL,
     pass: process.env.EMAIL_PASS,
@@ -11,7 +11,7 @@ var transporter = nodemailer.createTransport({
 
 const sendEmail = (id, token, email) => {
   var mailOptions = {
-    from: "okiedokie.club@gmail.com",
+    from: "hello@okiedokie.club",
     to: email,
     subject: "Reset password",
     html:
