@@ -2,7 +2,7 @@ var nodemailer = require("nodemailer");
 require("dotenv").config();
 
 var transporter = nodemailer.createTransport({
-  service: "gmail",
+  service: "Mail.ru",
   auth: {
     user: process.env.EMAIL,
     pass: process.env.EMAIL_PASS,
@@ -13,7 +13,7 @@ const sendLessonNotification = (locale, email, link, date, time) => {
   var mailOptions =
     locale === "ru"
       ? {
-          from: "okiedokie.club@gmail.com",
+          from: "hello@okiedokie.club",
           to: email,
           subject: "Ваше следующее мероприятие в OkieDokie! club",
           html:
@@ -26,7 +26,7 @@ const sendLessonNotification = (locale, email, link, date, time) => {
             '">link</a> <br /> Так же, cсылку на подключение вы можете также найти на главной странице сайта, на картинке забронированного мероприятия, за 15 минут до его начала <br /> <br /> <br /> Warmest regards, <br />Your OkieDokie!</p>',
         }
       : {
-          from: "okiedokie.club@gmail.com",
+          from: "hello@okiedokie.club",
           to: email,
           subject: "Your next OkieDokie! club meeting",
           html:
