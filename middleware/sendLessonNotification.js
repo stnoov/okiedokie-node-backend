@@ -13,7 +13,7 @@ const sendLessonNotification = (locale, email, link, date, time) => {
   var mailOptions =
     locale === "ru"
       ? {
-          from: "hello@okiedokie.club",
+          from: "hi@okiedokie.club",
           to: email,
           subject: "Ваше следующее мероприятие в OkieDokie! club",
           html:
