@@ -11,7 +11,7 @@ var transporter = nodemailer.createTransport({
 
 const sendEmail = (id, token, email) => {
   var mailOptions = {
-    from: "hello@okiedokie.club",
+    from: "hi@okiedokie.club",
     to: email,
     subject: "Reset password",
     html:
