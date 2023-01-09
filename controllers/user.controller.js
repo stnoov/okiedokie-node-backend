@@ -57,6 +57,7 @@ exports.edit_user = (req, res) => {
 };
 
 exports.delete_user = (req, res) => {
+  console.log("delete ", req.body.email);
   User.findOne({
     where: {
       email: req.body.email,
