@@ -30,6 +30,9 @@ module.exports = (sequelize, Sequelize) => {
     datetime: {
       type: Sequelize.STRING,
     },
+    docs: {
+      type: Sequelize.STRING,
+    },
   });
 
   return Lesson;
