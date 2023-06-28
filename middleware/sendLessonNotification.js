@@ -36,7 +36,7 @@ const sendLessonNotification = (locale, email, link, date, time, docs) => {
             new Date(date).toLocaleDateString("uk-uk") +
             " at " +
             time +
-            '<br/><br/> Content for the lesson <a href="' +
+            '<br/><br/> Content for the lesson: <a href="' +
             docs +
             '">link</a> <br /> Click here to join: <a href="' +
             link +
