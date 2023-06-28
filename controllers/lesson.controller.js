@@ -20,7 +20,7 @@ exports.add_lesson = (req, res) => {
       `${req.body.date} ${req.body.time}`,
       "YYYY-MM-DD HH:mm"
     ).unix(),
-    link: req.body.docs,
+    docs: req.body.docs,
   })
     .then(() => {
       Lesson.findAll({
