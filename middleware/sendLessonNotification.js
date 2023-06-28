@@ -9,7 +9,7 @@ var transporter = nodemailer.createTransport({
   },
 });
 
-const sendLessonNotification = (locale, email, link, date, time) => {
+const sendLessonNotification = (locale, email, link, date, time, docs) => {
   var mailOptions =
     locale === "ru"
       ? {
@@ -23,10 +23,12 @@ const sendLessonNotification = (locale, email, link, date, time) => {
             time +
             '<br/> Ссылка на подключение: <a href="' +
             link +
-            '">link</a> <br /> Так же, cсылку на подключение вы можете найти на главной странице сайта, на картинке забронированного мероприятия, за 15 минут до его начала <br /> <br /> <br /> Warmest regards, <br />Your OkieDokie!</p>',
+            '">link</a><br /> <br /> Материалы к уроку: <a href="' +
+            docs +
+            '">link</a> <br /><br /> Так же, cсылку на подключение вы можете найти на главной странице сайта, на картинке забронированного мероприятия, за 15 минут до его начала <br /> <br /> <br /> Warmest regards, <br />Your OkieDokie!</p>',
         }
       : {
-          from: "hello@okiedokie.club",
+          from: "hi@okiedokie.club",
           to: email,
           subject: "Your next OkieDokie! club meeting",
           html:
