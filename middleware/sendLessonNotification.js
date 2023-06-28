@@ -38,6 +38,8 @@ const sendLessonNotification = (locale, email, link, date, time, docs) => {
             time +
             '<br/> Click here to join: <a href="' +
             link +
+            '">link</a> <br /><br/> Content for the lesson: <a href="' +
+            docs +
             '">link</a> <br />The link is also available on the main page of the web-site 15 minutes before the meeting starts. <br /> <br /> <br /> Warmest regards, <br />Your OkieDokie!</p>',
         };
 
