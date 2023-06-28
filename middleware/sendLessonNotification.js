@@ -21,11 +21,11 @@ const sendLessonNotification = (locale, email, link, date, time, docs) => {
             new Date(date).toLocaleDateString("uk-uk") +
             " в " +
             time +
-            '<br/> Ссылка на подключение: <a href="' +
-            link +
-            '">link</a><br /> <br /> Материалы к уроку: <a href="' +
+            '<br/><br /> Материалы к уроку: <a href="' +
             docs +
-            '">link</a> <br /><br /> Так же, cсылку на подключение вы можете найти на главной странице сайта, на картинке забронированного мероприятия, за 15 минут до его начала <br /> <br /> <br /> Warmest regards, <br />Your OkieDokie!</p>',
+            '">link</a><br /> Ссылка на подключение: <a href="' +
+            link +
+            '">link</a> <br /> Так же, cсылку на подключение вы можете найти на главной странице сайта, на картинке забронированного мероприятия, за 15 минут до его начала <br /><br /> Warmest regards, <br />Your OkieDokie!</p>',
         }
       : {
           from: "hi@okiedokie.club",
@@ -36,11 +36,11 @@ const sendLessonNotification = (locale, email, link, date, time, docs) => {
             new Date(date).toLocaleDateString("uk-uk") +
             " at " +
             time +
-            '<br/> Click here to join: <a href="' +
-            link +
-            '">link</a> <br /><br/> Content for the lesson: <a href="' +
+            '<br/><br/> Content for the lesson <a href="' +
             docs +
-            '">link</a> <br />The link is also available on the main page of the web-site 15 minutes before the meeting starts. <br /> <br /> <br /> Warmest regards, <br />Your OkieDokie!</p>',
+            '">link</a> <br /> Click here to join: <a href="' +
+            link +
+            '">link</a> <br />The link is also available on the main page of the website 15 minutes before the meeting starts. <br /><br /> Warmest regards, <br />Your OkieDokie!</p>',
         };
 
   transporter.sendMail(mailOptions, function (error, info) {
