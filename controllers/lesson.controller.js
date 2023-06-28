@@ -161,7 +161,8 @@ exports.sign_up_for_a_lesson = (req, res) => {
                   user.email,
                   lesson.link,
                   lesson.date,
-                  lesson.time
+                  lesson.time,
+                  lesson.docs
                 );
               }
               return res.status(200).send({ message: "Success!" });
