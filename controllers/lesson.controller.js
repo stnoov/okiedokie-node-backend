@@ -83,6 +83,7 @@ exports.edit_lesson = (req, res) => {
           num_students: req.body.num_students,
           link: req.body.link,
           price: req.body.price,
+          docs: req.body.docs,
         })
         .then(() => {
           Lesson.findAll({
