@@ -12,7 +12,7 @@ exports.signup = (req, res) => {
     email: req.body.email,
     password: bcrypt.hashSync(req.body.password, 8),
     age: req.body.age,
-    balance: 450,
+    balance: 500,
     classes_completed: 0,
     okie_dokie_points: 0,
     isAdmin: false,
