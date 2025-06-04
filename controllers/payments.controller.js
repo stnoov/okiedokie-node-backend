@@ -61,7 +61,7 @@ class YooKassaService {
   }
 
   // Create payment according to YooKassa docs
-  async createPayment({ amount, description, metadata = {}, returnUrl, paymentMethodData = null }) {
+  async createPayment({ amount, description, metadata = {}, paymentMethodData = null }) {
     const paymentData = {
       amount: {
         value: amount.toFixed(2),
@@ -69,7 +69,7 @@ class YooKassaService {
       },
       confirmation: {
         type: 'redirect',
-        returnUrl: `https://okiedokie.club/payment/success?amount=${amount}&currency=RUB`
+        return_url: `https://okiedokie.club/payment/success?amount=${amount}&currency=RUB`
       },
       description: description,
       metadata: metadata,
