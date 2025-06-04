@@ -10,5 +10,12 @@ module.exports = function (app) {
     next();
   });
 
+  // Legacy YooMoney webhook
   app.post("/payment/notifications", controller.handle_payments);
+
+  // New YooKassa endpoints
+  app.post("/api/payments/create", [authJwt.verifyToken], controller.create_payment);
+  app.post("/api/payments/webhook", controller.handle_yookassa_webhook);
+  app.get("/api/payments/:paymentId/status", [authJwt.verifyToken], controller.get_payment_status);
+  app.get("/api/payments/history", [authJwt.verifyToken], controller.get_payment_history);
 };
