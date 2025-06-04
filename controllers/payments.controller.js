@@ -35,7 +35,6 @@ class YooKassaService {
       },
     };
 
-    // Add idempotency key for POST requests (required by YooKassa)
     if (method === 'POST') {
       options.headers['Idempotence-Key'] = uuidv4();
     }
