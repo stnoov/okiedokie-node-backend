@@ -51,6 +51,7 @@ exports.get_lessons = (req, res) => {
       {
         model: User,
         as: "user",
+        attributes: ["id", "name", "age"],
         through: {
           attributes: ["lesson_id", "user_id"],
         },
